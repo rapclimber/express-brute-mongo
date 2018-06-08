@@ -34,7 +34,7 @@ MongoStore.prototype.get = function (key, callback) {
   var _id = this.options.prefix + key;
   var collection = this._collection;
 
-  collection.findOne({ _id: _id }, function (err, doc) {
+  collection.find({ _id: _id }).limit(1).next(function (err, doc) {
     if (err) {
       typeof callback == 'function' && callback(err, null);
     } else {
